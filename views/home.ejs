@@ -1,6 +1,15 @@
 <%- include('partials/header') %> 
 
-<h1>Home</h1>
+    <h1>Home</h1>
+
+    <div>
+        <% for (var i = 0; i < titles.length; i++) { %>
+            <div class="compositions">
+            <h4><%= titles[i] %></h4>
+            <p><%= contents[i] %> </p>
+            </div>
+            <% }; %>
+    </div>
 
 <p><%= homeStartingContent %> </p>
 

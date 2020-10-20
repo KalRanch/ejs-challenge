@@ -15,13 +15,20 @@ const contactContent =
 
 const app = express();
 
+const titles = [];
+const contents = [];
+
 app.set("view engine", "ejs");
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static("public"));
 
 app.get("/", function (req, res) {
-  res.render("home", { homeStartingContent: homeStartingContent });
+  res.render("home", {
+    homeStartingContent: homeStartingContent,
+    titles: titles,
+    contents: contents
+  });
 });
 
 app.get("/about", function (req, res) {
@@ -30,6 +37,22 @@ app.get("/about", function (req, res) {
 
 app.get("/contact", function (req, res) {
   res.render("contact", { contactContent: contactContent });
+});
+
+app.get("/compose", function (req, res) {
+  res.render("compose", {
+    contactContent: contactContent,
+  });
+});
+
+app.post("/compose", function (req, res) {
+  let title = req.body.postTitle;
+  let content = req.body.postContent;
+
+  titles.push(title);
+  contents.push(content);
+
+  res.redirect("/");
 });
 
 app.listen(3000, function () {
