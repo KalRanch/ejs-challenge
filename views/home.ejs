@@ -2,15 +2,13 @@
 
 <h1>Home</h1>
 
-<div>
-  <% for (var i = 0; i < titles.length; i++) { %>
-  <div class="compositions">
-    <h4><%= titles[i] %></h4>
-    <p><%= contents[i] %></p>
-  </div>
-  <% }; %>
-</div>
-
 <p><%= homeStartingContent %></p>
+
+
+    <% posts.forEach(function(post){ %> 
+        <h1><%= post.title %></h1>
+        <p><%= post.content %></p>
+    <% }) %> 
+
 
 <%- include('partials/footer') %>

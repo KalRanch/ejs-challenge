@@ -15,8 +15,7 @@ const contactContent =
 
 const app = express();
 
-const titles = [];
-const contents = [];
+let posts = []
 
 app.set("view engine", "ejs");
 
@@ -26,8 +25,7 @@ app.use(express.static("public"));
 app.get("/", function (req, res) {
   res.render("home", {
     homeStartingContent: homeStartingContent,
-    titles: titles,
-    contents: contents
+    posts: posts
   });
 });
 
@@ -46,16 +44,26 @@ app.get("/compose", function (req, res) {
 });
 
 app.post("/compose", function (req, res) {
+  const post = {
+    title: req.body.postTitle,
+    content: req.body.postContent
+  };
 
-const post = {
-  title: req.body.postTitle,
-  content: req.body.postContent
-};
-
-titles.push(post.title);
-contents.push(post.content);
+  posts.push(post)
 
   res.redirect("/");
+});
+
+app.get("/posts/:postName", function (req, res) {
+  const requestedTitle = req.params.postName;
+
+  posts.forEach(function (post){
+    const storedTitle = post.title;
+
+    if (storedTitle === requestedTitle) {
+      console.log("Match found!");
+    }
+  });
 });
 
 app.listen(3000, function () {
